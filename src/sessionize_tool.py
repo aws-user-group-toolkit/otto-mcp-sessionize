@@ -43,7 +43,7 @@ class SessionizeApi:
 
         return formattedSessions
 
-mcp = FastMCP("sessionize", host="0.0.0.0", port=8080)
+mcp = FastMCP("sessionize", host="0.0.0.0", port=8080, stateless_http=True)
 
 
 @mcp.tool()
