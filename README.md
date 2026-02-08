@@ -34,13 +34,13 @@ python src/sessionize_tool.py
 ```bash
 podman build -t sessionize-mcp .
 
-podman run -p 8000:8000 \
+podman run -p 8080:8080 \
   -e SESSIONIZE_URL="https://sessionize.com/api/v2/<your-id>/view/Sessions" \
   -e SESSIONIZE_DATE_FILTER_CATEGORY_ID=61493 \
   sessionize-mcp
 ```
 
-The MCP endpoint will be available at `http://localhost:8000/mcp`.
+The MCP endpoint will be available at `http://localhost:8080/mcp`.
 
 ## Client Configuration
 
@@ -53,7 +53,7 @@ Add to your `.vscode/mcp.json`:
   "servers": {
     "sessionize": {
       "type": "http",
-      "url": "http://localhost:8000/mcp"
+      "url": "http://localhost:8080/mcp"
     }
   }
 }
@@ -67,7 +67,7 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "sessionize": {
-      "url": "http://localhost:8000/mcp"
+      "url": "http://localhost:8080/mcp"
     }
   }
 }
@@ -81,7 +81,7 @@ Add to your Cursor MCP settings:
 {
   "mcpServers": {
     "sessionize": {
-      "url": "http://localhost:8000/mcp"
+      "url": "http://localhost:8080/mcp"
     }
   }
 }
@@ -90,19 +90,19 @@ Add to your Cursor MCP settings:
 ### Open WebUI
 
 1. Go to **Settings → Tools → Add MCP Server**
-2. Set the URL to `http://<host>:8000/mcp`
+2. Set the URL to `http://<host>:8080/mcp`
 
 ### curl
 
 ```bash
 # Initialize session
-curl -i -X POST http://localhost:8000/mcp \
+curl -i -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"curl","version":"1.0"}}}'
 
 # Call the tool (use mcp-session-id from the response headers above)
-curl -X POST http://localhost:8000/mcp \
+curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -H "mcp-session-id: <session-id>" \
